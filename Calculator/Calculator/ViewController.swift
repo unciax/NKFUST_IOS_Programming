@@ -35,25 +35,23 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func clearDisplay() {
+    @IBAction func clearAll() {
         displayValue=0
         operandStack.removeAll()
     }
+
     @IBAction func selectComputeFunc(sender: UIButton) {
-        if isTyping { enterValue() }
-        switch sender.currentTitle!{
-            case "+":
-                performOperation { $0 + $1 }
-            case "-":
-                performOperation { $1 - $0 }
-            case "×":
-                performOperation { $0 * $1 }
-            case "÷":
-                performOperation { $1 / $0 }
-            case "√":
-                performOperation { sqrt($0) }
-            default:
-                break
+        if sender.currentTitle != nil {
+            if isTyping { enterValue() }
+            switch sender.currentTitle!{
+                case "+": performOperation { $0 + $1 }
+                case "-": performOperation { $1 - $0 }
+                case "×": performOperation { $0 * $1 }
+                case "÷": performOperation { $1 / $0 }
+                case "√": performOperation { sqrt($0) }
+                default: break
+            }
+  
         }
     }
     
@@ -63,7 +61,7 @@ class ViewController: UIViewController {
         isTyping = false
     }
     
-    func performOperation (operation:(Double ,Double)->Double){
+    private func performOperation (operation:(Double ,Double)->Double){
         if (operandStack.count >= 2 ){
             displayValue = operation(operandStack.removeLast(),operandStack.removeLast())
             enterValue()
