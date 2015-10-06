@@ -11,7 +11,6 @@ import UIKit
 class ViewController: UIViewController {
     
     var isTyping = false
-    var operandStack = [Double]()
     var displayValue:Double{
         // To get/set display value on lblDisplayValue
         get{
@@ -37,40 +36,30 @@ class ViewController: UIViewController {
     
     @IBAction func clearAll() {
         displayValue=0
-        operandStack.removeAll()
+        cBrain.resetAll()
     }
 
+    var cBrain = CalculatorBrain() //() -> 物件初始化
+    
+    
     @IBAction func selectComputeFunc(sender: UIButton) {
         if sender.currentTitle != nil {
             if isTyping { enterValue() }
-            switch sender.currentTitle!{
-                case "+": performOperation { $0 + $1 }
-                case "-": performOperation { $1 - $0 }
-                case "×": performOperation { $0 * $1 }
-                case "÷": performOperation { $1 / $0 }
-                case "√": performOperation { sqrt($0) }
-                default: break
+            if let result = cBrain.performOperation(sender.currentTitle!){
+                displayValue=result
+            }else{
+                displayValue=0
             }
-  
         }
     }
     
     @IBAction func enterValue() {
-        operandStack.append(displayValue)
-        print(operandStack)
         isTyping = false
-    }
-    
-    private func performOperation (operation:(Double ,Double)->Double){
-        if (operandStack.count >= 2 ){
-            displayValue = operation(operandStack.removeLast(),operandStack.removeLast())
-            enterValue()
+        if let result = cBrain.puushOperand(displayValue) {
+            displayValue = result
+        }else{
+            displayValue = 0 //Show a error message may be better
         }
-    }
-    
-    private func performOperation (operation:(Double)->Double){
-        displayValue = operation(operandStack.removeLast())
-        enterValue()
     }
     
     override func viewDidLoad() {
