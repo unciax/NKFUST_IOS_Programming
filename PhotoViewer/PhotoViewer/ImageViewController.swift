@@ -72,7 +72,8 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
     
     @IBAction func offSetButton(sender: AnyObject) {
         let btnName:String = sender.currentTitle!!
-        var new_x,new_y:CGFloat
+        var new_x:CGFloat = CGFloat()
+        var new_y:CGFloat = CGFloat()
         switch(btnName){
             case "⬆︎":
                 new_x = scrollView.contentOffset.x
@@ -85,7 +86,6 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
                     btnUp.enabled = true
                     btnDown.enabled = true
                 }
-                print("imageView.height:\(imageView.frame.size.height) x:\(new_x) y:\(new_y)")
                 scrollView.contentOffset = CGPoint(x:new_x, y:new_y)
                 break;
             case "➡︎":
@@ -99,13 +99,12 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
                     btnRight.enabled = true
                     btnLeft.enabled = true
                 }
-                print("imageView.width:\(imageView.frame.size.width) x:\(new_x) y:\(new_y)")
                 scrollView.contentOffset = CGPoint(x:new_x, y:new_y)
                 break;
             case "⬇︎":
                 new_x = scrollView.contentOffset.x
                 new_y = scrollView.contentOffset.y + scrollView.bounds.height
-                if (new_y + scrollView.bounds.height > scrollView.bounds.height) {
+                if (new_y + scrollView.bounds.height > imageView.frame.size.height) {
                     new_y = imageView.frame.size.height - scrollView.bounds.height
                     btnDown.enabled = false
                     btnUp.enabled=true
@@ -113,7 +112,6 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
                     btnDown.enabled = true
                     btnUp.enabled=true
                 }
-                print("imageView.height:\(imageView.frame.size.height) x:\(new_x) y:\(new_y)")
                 scrollView.contentOffset = CGPoint(x:new_x, y:new_y)
                 break;
             case "⬅︎":
@@ -127,19 +125,28 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
                     btnLeft.enabled = true
                     btnRight.enabled=true
                 }
-                print("imageView.width:\(imageView.frame.size.width) x:\(new_x) y:\(new_y)")
+                
                 scrollView.contentOffset = CGPoint(x:new_x, y:new_y)                
                 break;
             default: break;
         }
+        print("case:\(btnName) imageView.width:\(imageView.frame.size.width) x:\(new_x) y:\(new_y)")
     }
     
     func resetMinimumZoomScale(){
-        scrollView.minimumZoomScale = min(scrollView.bounds.size.height/ori_height , scrollView.bounds.size.width/ori_width)
+        let lastZoomScale = scrollView.zoomScale
+        print("last Scale:\(scrollView.zoomScale)")
+        dispatch_async(dispatch_get_main_queue()){
+            let imageViewSize = self.imageView.frame.size
+            let scrollViewSize = self.scrollView.bounds.size
+            
+            self.scrollView.minimumZoomScale = min(scrollViewSize.height/self.ori_height , scrollViewSize.width/self.ori_width)
+            print("scrollView.height:\(scrollViewSize.height) imageView.height:\(imageViewSize.height) ratio:\(scrollViewSize.height/self.ori_height)")
+            print("scrollView.width:\(scrollViewSize.width) imageView.width:\(imageViewSize.width) ratio:\(scrollViewSize.width/self.ori_width)")
+            print("min:\(self.scrollView.minimumZoomScale)")
+            if lastZoomScale < self.scrollView.minimumZoomScale { self.scrollView.zoomScale = self.scrollView.minimumZoomScale }
+        }
         
-        print("scrollView.height:\(scrollView.bounds.height) imageView.height:\(imageView.frame.size.height) ratio:\(scrollView.bounds.size.height/ori_height)")
-        print("scrollView.width:\(scrollView.bounds.width) imageView.width:\(imageView.frame.size.width) ratio:\(scrollView.bounds.size.width/ori_width)")
-        print("min:\(scrollView.minimumZoomScale)")
     }
     
     override func viewDidLoad(){
@@ -165,46 +172,35 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
         putImageAtCenter()
     }
     
-//    func scrollViewDidEndZooming(_: UIScrollView,withView: UIView?, atScale: CGFloat){
-//        let imageViewSize = imageView.frame.size
-//        let scrollViewSize = scrollView.bounds.size
-//        print("imageView: \(imageViewSize.height) x \(imageViewSize.width) . ScrollView: \(scrollViewSize.height) x \(scrollViewSize.width)")
-//        if(scrollViewSize.width > imageViewSize.width || scrollViewSize.height > imageViewSize.height){
-//            print("triggle")
-//            let new_x = (imageViewSize.width-scrollViewSize.width)/2
-//            let new_y = (imageViewSize.height-scrollViewSize.height)/2
-//            scrollView.contentOffset = CGPoint(x: new_x, y: new_y)
-//        }
-//        print("Offset x: \(scrollView.contentOffset.x) . y:\(scrollView.contentOffset.y)")
-//    }
-    
     func putImageAtCenter(){
-        let imageViewSize = imageView.frame.size
-        let scrollViewSize = scrollView.bounds.size
+        dispatch_async(dispatch_get_main_queue()){
+            let imageViewSize = self.imageView.frame.size
+            let scrollViewSize = self.scrollView.bounds.size
         
-        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
-        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
-        btnUp.enabled=imageView.frame.size.height > scrollView.bounds.height ? true : false
-        btnLeft.enabled=imageView.frame.size.width > scrollView.bounds.width ? true : false
-        btnRight.enabled=imageView.frame.size.width > scrollView.bounds.width ? true : false
-        btnDown.enabled=imageView.frame.size.height > scrollView.bounds.height ? true : false
-        scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
-        print("v:\(verticalPadding) h:\(horizontalPadding)")
-        print("scrollView.height:\(scrollView.bounds.height) imageView.height:\(imageView.frame.size.height)")
-        print("scrollView.width:\(scrollView.bounds.width) imageView.width:\(imageView.frame.size.width)")
+            let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
+            let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
+            self.btnUp.enabled=imageViewSize.height > scrollViewSize.height ? true : false
+            self.btnLeft.enabled=imageViewSize.width > scrollViewSize.width ? true : false
+            self.btnRight.enabled=imageViewSize.width > scrollViewSize.width ? true : false
+            self.btnDown.enabled=imageViewSize.height > scrollViewSize.height ? true : false
+            print("VerticalPadding:\(verticalPadding) HorizontalPadding:\(horizontalPadding)")
+            self.scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
+        }
     }
     
     
     override func viewWillLayoutSubviews() {
-        if (imageURL != nil ) {
-            let lastZoomScale = scrollView.zoomScale
+        super.viewWillLayoutSubviews()
+        if (image != nil ) {
+            
             resetMinimumZoomScale()
             if (scrollView.zoomScale != 1.0) {
-                print(scrollView.zoomScale)
                 putImageAtCenter()
-                if lastZoomScale < scrollView.minimumZoomScale { scrollView.zoomScale = scrollView.minimumZoomScale }
+                print("now Scale:\(scrollView.zoomScale)")
+                print("scrollView.height:\(scrollView.bounds.height) imageView.height:\(imageView.frame.size.height)")
+                print("scrollView.width:\(scrollView.bounds.width) imageView.width:\(imageView.frame.size.width)")
+                
             }
         }
     }
-    
 }
