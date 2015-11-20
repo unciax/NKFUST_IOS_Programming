@@ -78,7 +78,7 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
             case "⬆︎":
                 new_x = scrollView.contentOffset.x
                 new_y = scrollView.contentOffset.y - scrollView.bounds.height
-                if (new_y < 0) {
+                if (new_y <= 0) {
                     new_y = 0
                     btnUp.enabled = false
                     btnDown.enabled = true
@@ -86,12 +86,12 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
                     btnUp.enabled = true
                     btnDown.enabled = true
                 }
-                scrollView.contentOffset = CGPoint(x:new_x, y:new_y)
+                
                 break;
             case "➡︎":
                 new_x = scrollView.contentOffset.x + scrollView.bounds.width
                 new_y = scrollView.contentOffset.y
-                if (new_x + scrollView.bounds.width > imageView.frame.size.width) {
+                if (new_x + scrollView.bounds.width >= imageView.frame.size.width) {
                     new_x = imageView.frame.size.width - scrollView.bounds.width
                     btnRight.enabled = false
                     btnLeft.enabled = true
@@ -99,12 +99,11 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
                     btnRight.enabled = true
                     btnLeft.enabled = true
                 }
-                scrollView.contentOffset = CGPoint(x:new_x, y:new_y)
                 break;
             case "⬇︎":
                 new_x = scrollView.contentOffset.x
                 new_y = scrollView.contentOffset.y + scrollView.bounds.height
-                if (new_y + scrollView.bounds.height > imageView.frame.size.height) {
+                if (new_y + scrollView.bounds.height >= imageView.frame.size.height) {
                     new_y = imageView.frame.size.height - scrollView.bounds.height
                     btnDown.enabled = false
                     btnUp.enabled=true
@@ -112,12 +111,11 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
                     btnDown.enabled = true
                     btnUp.enabled=true
                 }
-                scrollView.contentOffset = CGPoint(x:new_x, y:new_y)
                 break;
             case "⬅︎":
                 new_x = scrollView.contentOffset.x - scrollView.bounds.width
                 new_y = scrollView.contentOffset.y
-                if (new_x < 0) {
+                if (new_x <= 0) {
                     new_x = 0
                     btnLeft.enabled = false
                     btnRight.enabled=true
@@ -125,12 +123,13 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
                     btnLeft.enabled = true
                     btnRight.enabled=true
                 }
-                
-                scrollView.contentOffset = CGPoint(x:new_x, y:new_y)                
                 break;
             default: break;
         }
+        
+        scrollView.scrollRectToVisible(CGRect(x: new_x, y: new_y, width: scrollView.bounds.width, height: scrollView.bounds.height),animated: true)
         print("case:\(btnName) imageView.width:\(imageView.frame.size.width) x:\(new_x) y:\(new_y)")
+        print("\(btnRight.enabled)")
     }
     
     func resetMinimumZoomScale(){
@@ -141,10 +140,10 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
             let scrollViewSize = self.scrollView.bounds.size
             
             self.scrollView.minimumZoomScale = min(scrollViewSize.height/self.ori_height , scrollViewSize.width/self.ori_width)
+            if lastZoomScale < self.scrollView.minimumZoomScale { self.scrollView.zoomScale = self.scrollView.minimumZoomScale }
             print("scrollView.height:\(scrollViewSize.height) imageView.height:\(imageViewSize.height) ratio:\(scrollViewSize.height/self.ori_height)")
             print("scrollView.width:\(scrollViewSize.width) imageView.width:\(imageViewSize.width) ratio:\(scrollViewSize.width/self.ori_width)")
-            print("min:\(self.scrollView.minimumZoomScale)")
-            if lastZoomScale < self.scrollView.minimumZoomScale { self.scrollView.zoomScale = self.scrollView.minimumZoomScale }
+            print("min:\(self.scrollView.minimumZoomScale)")            
         }
         
     }
@@ -169,23 +168,48 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
 
 
     func scrollViewDidZoom(scrollView: UIScrollView) {
-        putImageAtCenter()
+        putImageAtCenter(true)
     }
     
-    func putImageAtCenter(){
+    func putImageAtCenter(resetEnable:Bool){
         dispatch_async(dispatch_get_main_queue()){
             let imageViewSize = self.imageView.frame.size
             let scrollViewSize = self.scrollView.bounds.size
         
             let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
             let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
-            self.btnUp.enabled=imageViewSize.height > scrollViewSize.height ? true : false
-            self.btnLeft.enabled=imageViewSize.width > scrollViewSize.width ? true : false
-            self.btnRight.enabled=imageViewSize.width > scrollViewSize.width ? true : false
-            self.btnDown.enabled=imageViewSize.height > scrollViewSize.height ? true : false
-            print("VerticalPadding:\(verticalPadding) HorizontalPadding:\(horizontalPadding)")
+            if(resetEnable){
+                self.btnUp.enabled=imageViewSize.height > scrollViewSize.height ? true : false
+                self.btnLeft.enabled=imageViewSize.width > scrollViewSize.width ? true : false
+                self.btnRight.enabled=imageViewSize.width > scrollViewSize.width ? true : false
+                self.btnDown.enabled=imageViewSize.height > scrollViewSize.height ? true : false
+            }
             self.scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
+            print("VerticalPadding:\(verticalPadding) HorizontalPadding:\(horizontalPadding)")
+            print("ScrollViewOffset \(self.scrollView.contentOffset)")
         }
+    }
+    
+    func scrollViewDidScroll(scrollView: UIScrollView) {
+        let imageViewSize = self.imageView.frame.size
+        let scrollViewSize = self.scrollView.bounds.size
+        
+        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
+        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
+        
+        if(imageViewSize.width < scrollViewSize.width) { scrollView.contentOffset.x = 0-horizontalPadding }
+        if(imageViewSize.height < scrollViewSize.height) { scrollView.contentOffset.y = 0-verticalPadding }
+        
+        btnUp.enabled = scrollView.contentOffset.y  <= 0 ? false : true
+        btnDown.enabled = (scrollView.contentOffset.y + scrollView.bounds.height  >= imageView.frame.size.height) ? false:true
+        btnLeft.enabled = scrollView.contentOffset.x <= 0 ? false : true
+        btnRight.enabled = (scrollView.contentOffset.x + scrollView.bounds.width  >= imageView.frame.size.width)   ? false : true
+        
+        print("Offset:\(scrollView.contentOffset.x) x \(scrollView.contentOffset.y)")
+        print("Image:\(imageView.frame.size.width) x \(imageView.frame.size.height)")
+        print("ScrollView \(scrollView.bounds.width) x \(scrollView.bounds.height)")
+        print("VerticalPadding:\(verticalPadding) HorizontalPadding:\(horizontalPadding)")
+        print("ScrollViewOffset \(self.scrollView.contentOffset)")  
     }
     
     
@@ -195,7 +219,7 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
             
             resetMinimumZoomScale()
             if (scrollView.zoomScale != 1.0) {
-                putImageAtCenter()
+                putImageAtCenter(false)
                 print("now Scale:\(scrollView.zoomScale)")
                 print("scrollView.height:\(scrollView.bounds.height) imageView.height:\(imageView.frame.size.height)")
                 print("scrollView.width:\(scrollView.bounds.width) imageView.width:\(imageView.frame.size.width)")
