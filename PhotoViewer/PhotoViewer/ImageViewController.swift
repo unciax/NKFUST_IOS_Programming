@@ -172,7 +172,6 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
     }
     
     func putImageAtCenter(resetEnable:Bool){
-        dispatch_async(dispatch_get_main_queue()){
             let imageViewSize = self.imageView.frame.size
             let scrollViewSize = self.scrollView.bounds.size
         
@@ -187,7 +186,6 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
             self.scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
             print("VerticalPadding:\(verticalPadding) HorizontalPadding:\(horizontalPadding)")
             print("ScrollViewOffset \(self.scrollView.contentOffset)")
-        }
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
@@ -213,8 +211,8 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
     }
     
     
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         if (image != nil ) {
             
             resetMinimumZoomScale()
