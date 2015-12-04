@@ -96,87 +96,7 @@
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" minimumZoomScale="0.5" maximumZoomScale="2" translatesAutoresizingMaskIntoConstraints="NO" id="nvg-IV-eX2">
                                 <rect key="frame" x="20" y="72" width="560" height="330"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kFD-1d-a6t">
-                                        <rect key="frame" x="0.0" y="0.0" width="560" height="330"/>
-                                        <animations/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="320" id="OoC-SK-jvs"/>
-                                            <constraint firstAttribute="height" constant="330" id="QmT-Lr-HOf"/>
-                                            <constraint firstAttribute="height" constant="262" id="Xma-l7-sGH"/>
-                                            <constraint firstAttribute="height" constant="246" id="aiI-H5-BSJ"/>
-                                            <constraint firstAttribute="height" constant="262" id="h3v-Yj-FUe"/>
-                                        </constraints>
-                                        <variation key="default">
-                                            <mask key="constraints">
-                                                <exclude reference="OoC-SK-jvs"/>
-                                                <exclude reference="Xma-l7-sGH"/>
-                                                <exclude reference="aiI-H5-BSJ"/>
-                                                <exclude reference="h3v-Yj-FUe"/>
-                                            </mask>
-                                        </variation>
-                                        <variation key="heightClass=compact">
-                                            <mask key="constraints">
-                                                <include reference="OoC-SK-jvs"/>
-                                                <exclude reference="QmT-Lr-HOf"/>
-                                            </mask>
-                                        </variation>
-                                    </imageView>
-                                </subviews>
                                 <animations/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="kFD-1d-a6t" secondAttribute="bottom" constant="-64" id="8LA-3q-nJj">
-                                        <variation key="heightClass=compact" constant="0.0"/>
-                                    </constraint>
-                                    <constraint firstAttribute="trailing" secondItem="kFD-1d-a6t" secondAttribute="trailing" id="KEx-j8-dwL"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="trailing" secondItem="nvg-IV-eX2" secondAttribute="trailingMargin" id="OYe-zQ-12J"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="top" secondItem="nvg-IV-eX2" secondAttribute="top" constant="64" id="PCk-65-S1O">
-                                        <variation key="heightClass=compact" constant="0.0"/>
-                                    </constraint>
-                                    <constraint firstAttribute="trailing" secondItem="kFD-1d-a6t" secondAttribute="trailing" constant="20" symbolic="YES" id="VYE-M2-iG7"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="leading" secondItem="nvg-IV-eX2" secondAttribute="leading" id="a5m-XC-Ipa"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="top" secondItem="nvg-IV-eX2" secondAttribute="top" id="bDj-xa-uz6"/>
-                                    <constraint firstAttribute="bottom" secondItem="kFD-1d-a6t" secondAttribute="bottom" constant="20" symbolic="YES" id="e1h-zb-DKX"/>
-                                    <constraint firstAttribute="bottom" secondItem="kFD-1d-a6t" secondAttribute="bottom" id="fr4-pc-mQT"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="centerX" secondItem="nvg-IV-eX2" secondAttribute="centerX" id="hOT-Fc-LS4"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="centerX" secondItem="nvg-IV-eX2" secondAttribute="centerX" id="iLr-c8-Ej7"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="leading" secondItem="nvg-IV-eX2" secondAttribute="leading" id="mQA-a3-smW"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="leading" secondItem="nvg-IV-eX2" secondAttribute="leading" constant="20" symbolic="YES" id="r5s-SD-kkJ"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="top" secondItem="nvg-IV-eX2" secondAttribute="top" constant="20" symbolic="YES" id="s6v-rK-OVA"/>
-                                    <constraint firstAttribute="trailing" secondItem="kFD-1d-a6t" secondAttribute="trailing" id="tVt-fE-kwV"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="centerX" secondItem="nvg-IV-eX2" secondAttribute="centerX" id="ujj-VM-vk8"/>
-                                    <constraint firstItem="kFD-1d-a6t" firstAttribute="leading" secondItem="nvg-IV-eX2" secondAttribute="leadingMargin" id="wW8-md-kIU"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="8LA-3q-nJj"/>
-                                        <exclude reference="OYe-zQ-12J"/>
-                                        <exclude reference="PCk-65-S1O"/>
-                                        <exclude reference="VYE-M2-iG7"/>
-                                        <exclude reference="a5m-XC-Ipa"/>
-                                        <exclude reference="e1h-zb-DKX"/>
-                                        <exclude reference="hOT-Fc-LS4"/>
-                                        <exclude reference="r5s-SD-kkJ"/>
-                                        <exclude reference="s6v-rK-OVA"/>
-                                        <exclude reference="tVt-fE-kwV"/>
-                                        <exclude reference="ujj-VM-vk8"/>
-                                        <exclude reference="wW8-md-kIU"/>
-                                    </mask>
-                                </variation>
-                                <variation key="heightClass=compact">
-                                    <mask key="constraints">
-                                        <include reference="8LA-3q-nJj"/>
-                                        <exclude reference="KEx-j8-dwL"/>
-                                        <include reference="PCk-65-S1O"/>
-                                        <include reference="a5m-XC-Ipa"/>
-                                        <exclude reference="bDj-xa-uz6"/>
-                                        <exclude reference="fr4-pc-mQT"/>
-                                        <exclude reference="iLr-c8-Ej7"/>
-                                        <exclude reference="mQA-a3-smW"/>
-                                        <include reference="tVt-fE-kwV"/>
-                                        <include reference="ujj-VM-vk8"/>
-                                    </mask>
-                                </variation>
                                 <connections>
                                     <outlet property="delegate" destination="O1t-R1-aVj" id="H7E-Ae-eYl"/>
                                 </connections>
@@ -461,9 +381,9 @@
                     <connections>
                         <outlet property="btnCall" destination="xy5-VO-8VZ" id="Zwu-GA-6Te"/>
                         <outlet property="btnEMail" destination="bIM-YG-3Rd" id="DRn-Js-26d"/>
-                        <outlet property="image" destination="kFD-1d-a6t" id="BQg-en-kCD"/>
                         <outlet property="lblLocation" destination="6YQ-U6-5uf" id="V8P-p8-q5m"/>
                         <outlet property="lblName" destination="M1l-dq-GwK" id="0mX-tB-0iH"/>
+                        <outlet property="scrollView" destination="nvg-IV-eX2" id="ZR9-nX-GSD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xFV-dV-duQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

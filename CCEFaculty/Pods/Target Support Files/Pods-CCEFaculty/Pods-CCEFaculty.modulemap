@@ -1,0 +1,6 @@
+framework module Pods_CCEFaculty {
+  umbrella header "Pods-CCEFaculty-umbrella.h"
+
+  export *
+  module * { export * }
+}
