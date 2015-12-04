@@ -72,6 +72,22 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-
+    //TODO : Save and Load button connection
+    
+    @IBAction func saveProgram (sender:UIButton){
+        NSUserDefaults.standardUserDefaults().setObject(cBrain.program, forKey:"history")
+    }
+    
+    @IBAction func loadProgram (sender:UIButton){
+        if let prog = NSUserDefaults.standardUserDefaults().arrayForKey("history"){
+            cBrain.program = prog
+            if let result = cBrain.evaluate() {
+                displayValue = result
+            }else{
+                displayValue = 0 //Show a error message may be better
+            }
+        }
+    }
+    
 }
 
