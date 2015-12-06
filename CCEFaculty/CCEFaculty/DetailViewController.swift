@@ -20,6 +20,7 @@ class DetailViewController: UIViewController,UIScrollViewDelegate {
     var ori_height:CGFloat=0
     var email:NSURL?
     var tel:NSURL?
+    var hasZoom:Bool=false
     private var imageView = UIImageView()
     
     private var image:UIImage? {
@@ -30,7 +31,7 @@ class DetailViewController: UIViewController,UIScrollViewDelegate {
             scrollView.contentSize=imageView.frame.size
             ori_width = imageView.frame.size.width
             ori_height = imageView.frame.size.height
-            putImageAtCenter()
+            resetZoomScale()
         }
     }
  
@@ -42,51 +43,42 @@ class DetailViewController: UIViewController,UIScrollViewDelegate {
         UIApplication.sharedApplication().openURL(tel!)
     }
     
-    
-    
     @IBAction func sendEMail(sender: UIButton) {
         UIApplication.sharedApplication().openURL(email!)
     }
     
     var teacherCore:Teacher?
  
-    func putImageAtCenter(){
-        let imageViewSize = self.imageView.frame.size
-        let scrollViewSize = self.scrollView.bounds.size
-        
-        let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
-        let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
-        self.scrollView.contentInset = UIEdgeInsets(top: verticalPadding, left: horizontalPadding, bottom: verticalPadding, right: horizontalPadding)
-        print("VerticalPadding:\(verticalPadding) HorizontalPadding:\(horizontalPadding)")
-        print("ScrollViewOffset \(self.scrollView.contentOffset)")
-    }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {
-        let imageViewSize = self.imageView.frame.size
-        let scrollViewSize = self.scrollView.bounds.size
+        let imageViewSize = imageView.frame.size
+        let scrollViewSize = scrollView.bounds.size
         
         let verticalPadding = imageViewSize.height < scrollViewSize.height ? (scrollViewSize.height - imageViewSize.height) / 2 : 0
         let horizontalPadding = imageViewSize.width < scrollViewSize.width ? (scrollViewSize.width - imageViewSize.width) / 2 : 0
         
         if(imageViewSize.width < scrollViewSize.width) { scrollView.contentOffset.x = 0-horizontalPadding }
         if(imageViewSize.height < scrollViewSize.height) { scrollView.contentOffset.y = 0-verticalPadding }
+        if(imageViewSize.height > scrollViewSize.height && scrollView.contentOffset.y<0) { scrollView.contentOffset.y=0}
         
         print("Offset:\(scrollView.contentOffset.x) x \(scrollView.contentOffset.y)")
-        print("Image:\(imageView.frame.size.width) x \(imageView.frame.size.height)")
-        print("ScrollView \(scrollView.bounds.width) x \(scrollView.bounds.height)")
+        print("Image:\(imageView.bounds.size.width) x \(imageView.bounds.size.height)")
+        print("ScrollView \(scrollView.frame.width) x \(scrollView.frame.height)")
         print("VerticalPadding:\(verticalPadding) HorizontalPadding:\(horizontalPadding)")
         print("ScrollViewOffset \(self.scrollView.contentOffset)")
     }
+    
+
     
     override func viewDidLoad() {
         // Do any additional setup after loading the view.
         super.viewDidLoad()
         scrollView.addSubview(imageView)
-        
+
         let core = teacherCore!
         lblName.text = core.name
         lblLocation.text = core.office
-        imageView.image = core.image
+        image = core.image
         btnCall.setTitle("\(core.ext)", forState: .Normal)
         email = NSURL(string: "mailto:\(core.email)")
         tel = NSURL(string: "tel://+88676011000p\(core.ext)")
@@ -94,6 +86,30 @@ class DetailViewController: UIViewController,UIScrollViewDelegate {
         
     }
 
+    func resetZoomScale(){
+        let imageViewSize = imageView.frame.size
+        let scrollViewSize = scrollView.bounds.size
+        let lastZoomScale = scrollView.zoomScale
+        print("last Scale:\(scrollView.zoomScale)")
+        if (scrollViewSize.height>self.ori_height && scrollViewSize.width>self.ori_width){
+            self.scrollView.minimumZoomScale = 1.0
+        }else{
+            self.scrollView.minimumZoomScale = min(scrollViewSize.height/self.ori_height , scrollViewSize.width/self.ori_width)
+        }
+        if lastZoomScale < self.scrollView.minimumZoomScale { self.scrollView.zoomScale = self.scrollView.minimumZoomScale }
+        if (!hasZoom){
+            if (imageViewSize.height>scrollViewSize.height || imageViewSize.width>scrollViewSize.width) {
+                scrollView.zoomScale = scrollView.minimumZoomScale
+            }
+        }
+        hasZoom = true
+        print("scrollView.height:\(scrollViewSize.height) imageView.height:\(imageViewSize.height) ratio:\(scrollViewSize.height/self.ori_height)")
+        print("scrollView.width:\(scrollViewSize.width) imageView.width:\(imageViewSize.width) ratio:\(scrollViewSize.width/self.ori_width)")
+        print("min:\(self.scrollView.minimumZoomScale)")
+        print("now:\(self.scrollView.zoomScale)")
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

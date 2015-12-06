@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		90F423D5A489FEE9B25FFBBC /* Pods_CCEFaculty.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A63D35E556821A0CD9D4F39 /* Pods_CCEFaculty.framework */; };
 		9701DCE81C11EBEA0019B322 /* OpenSourceList.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9701DCE71C11EBEA0019B322 /* OpenSourceList.txt */; };
+		9701DCEA1C1280F50019B322 /* QuickShowViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9701DCE91C1280F50019B322 /* QuickShowViewController.swift */; };
 		9717F4BF1C0D78F800C2ABBC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9717F4BE1C0D78F800C2ABBC /* AppDelegate.swift */; };
 		9717F4C41C0D78F800C2ABBC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9717F4C21C0D78F800C2ABBC /* Main.storyboard */; };
 		9717F4C61C0D78F800C2ABBC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9717F4C51C0D78F800C2ABBC /* Assets.xcassets */; };
@@ -25,6 +26,7 @@
 		4220E582144DE619E62E229F /* Pods-CCEFaculty.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCEFaculty.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CCEFaculty/Pods-CCEFaculty.debug.xcconfig"; sourceTree = "<group>"; };
 		5BBEAA9A8AA5BC33CDF1DAF7 /* Pods-CCEFaculty.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CCEFaculty.release.xcconfig"; path = "Pods/Target Support Files/Pods-CCEFaculty/Pods-CCEFaculty.release.xcconfig"; sourceTree = "<group>"; };
 		9701DCE71C11EBEA0019B322 /* OpenSourceList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OpenSourceList.txt; sourceTree = "<group>"; };
+		9701DCE91C1280F50019B322 /* QuickShowViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuickShowViewController.swift; sourceTree = "<group>"; };
 		9717F4BB1C0D78F800C2ABBC /* CCEFaculty.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CCEFaculty.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9717F4BE1C0D78F800C2ABBC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9717F4C31C0D78F800C2ABBC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 				9717F4C71C0D78F800C2ABBC /* LaunchScreen.storyboard */,
 				9717F4CA1C0D78F800C2ABBC /* Info.plist */,
 				9717F4D01C0D7A7500C2ABBC /* FacultyTableViewController.swift */,
+				9701DCE91C1280F50019B322 /* QuickShowViewController.swift */,
 				9717F4D61C0FC91100C2ABBC /* DataCore.swift */,
 				9717F4D41C0FBA3000C2ABBC /* FacultyTableViewCell.swift */,
 			);
@@ -228,6 +231,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9717F4D51C0FBA3000C2ABBC /* FacultyTableViewCell.swift in Sources */,
+				9701DCEA1C1280F50019B322 /* QuickShowViewController.swift in Sources */,
 				9717F4D71C0FC91100C2ABBC /* DataCore.swift in Sources */,
 				9717F4D31C0F45B900C2ABBC /* Teacher.swift in Sources */,
 				9717F4D91C0FD7EB00C2ABBC /* DetailViewController.swift in Sources */,
@@ -345,10 +349,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CCEFaculty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.edu.nkfust.u0251055.CCEFaculty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
@@ -358,10 +363,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = CCEFaculty/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.edu.nkfust.u0251055.CCEFaculty;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};

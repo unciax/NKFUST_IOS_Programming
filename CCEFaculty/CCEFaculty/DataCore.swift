@@ -11,8 +11,8 @@ import SwiftyJSON
 
 class DataCore {
     var teacherArray = [Teacher]()
-    let ccee_api = "http://mlf.twbbs.org/nkfust/ccee_crawler/"
-    //let ccee_api = "http://www2.nkfust.edu.tw/~u0251055/ccee_crawler/static.txt"
+    //let ccee_api = "http://mlf.twbbs.org/nkfust/ccee_crawler/"
+    let ccee_api = "http://www2.nkfust.edu.tw/~u0251055/ccee_crawler/static.txt"
     
     func loadData() -> Bool {
         var JSONObject:JSON=JSON(12345)

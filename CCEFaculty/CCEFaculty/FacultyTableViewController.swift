@@ -9,7 +9,7 @@
 import UIKit
 import SwiftyJSON
 
-class FacultyTableViewController: UITableViewController {
+class FacultyTableViewController: UITableViewController, UIPopoverPresentationControllerDelegate {
 
     @IBOutlet var facultyTable: UITableView!
     var core = DataCore()
@@ -49,6 +49,32 @@ class FacultyTableViewController: UITableViewController {
         return cell
     }
     
+    override func tableView(tableView: UITableView, accessoryButtonTappedForRowWithIndexPath indexPath: NSIndexPath) {
+        let rect = tableView.rectForRowAtIndexPath(indexPath).origin.y
+        let detailController: QuickShowViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier("QuickShowView") as! QuickShowViewController
+        detailController.teacherCore = core.teacherArray[indexPath.row]
+        detailController.modalPresentationStyle = .Popover
+        let cell: UITableViewCell = tableView.cellForRowAtIndexPath(indexPath)!
+        let popoverView = detailController.popoverPresentationController
+        detailController.preferredContentSize = CGSize(width: 250, height: 21)
+        popoverView?.delegate=self
+        popoverView?.sourceView = cell
+        print("Row Y + 2 times cell height : \(rect+cell.bounds.height*2)")
+        print("view height : \(view.bounds.height)")
+        print(rect)
+        if ((rect+cell.bounds.height*2+20) > view.bounds.height){
+            popoverView?.permittedArrowDirections = .Down
+            popoverView?.sourceRect = CGRect(x: cell.bounds.width-50,y: 0,width: 0,height: 0)
+        }else{
+            popoverView?.permittedArrowDirections = .Up
+            popoverView?.sourceRect = CGRect(x: cell.bounds.width-50,y: cell.bounds.height,width: 0,height: 0)
+        }
+        presentViewController(detailController, animated: true, completion: nil)
+
+    }
+
+
+    
     func fetchAndReload(){
         self.refreshControl!.attributedTitle = NSAttributedString(string: "Loading...")
         let queue = dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)
@@ -73,22 +99,26 @@ class FacultyTableViewController: UITableViewController {
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if let vc = segue.destinationViewController as? DetailViewController {
-            if let identifier = segue.identifier {
-                switch identifier {
+        
+        if let identifier = segue.identifier {
+            switch identifier {
                 case "ShowDetail":
-                   let cell = sender as! FacultyTableViewCell
-                    vc.title = cell.teacherName.text
-                    let indexPath = facultyTable.indexPathForCell(cell)
-                    vc.teacherCore = core.teacherArray[indexPath!.row]
+                    if let vc = segue.destinationViewController as? DetailViewController {
+                        let cell = sender as! FacultyTableViewCell
+                        vc.title = cell.teacherName.text
+                        let indexPath = facultyTable.indexPathForCell(cell)
+                        vc.teacherCore = core.teacherArray[indexPath!.row]
+                    }
                 default: break
-                }
             }
-        }
 
+        }
         
     }
     
+    func adaptivePresentationStyleForPresentationController(controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+    return UIModalPresentationStyle.None
+    }
     
 
   }

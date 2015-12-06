@@ -148,6 +148,7 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
         
     }
     
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         scrollView.addSubview(imageView)
