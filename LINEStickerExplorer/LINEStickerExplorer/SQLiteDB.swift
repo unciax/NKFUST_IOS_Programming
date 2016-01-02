@@ -33,10 +33,10 @@ class SQLiteDB {
             //initialize db schema
             if m_db.open() {
                 m_db.executeUpdate(
-                    "create table stickerSet(ID integer primary key, setID integer, setName text, setAuthor text, validDays integer, price integer)",
+                    "create table stickerSet(ID integer primary key, setID integer, setName text, setAuthor text, validDays integer, price integer,hasAnimation integer, hasSound integer)",
                     withArgumentsInArray: [])
                 m_db.executeUpdate(
-                    "create table sticker(sID integer primary key, setID integer)",
+                    "create table sticker(sID integer primary key, setID integer, hasAnimation integer)",
                     withArgumentsInArray: [])
                 m_db.close()
                 print("initialize database schema.")
@@ -60,7 +60,7 @@ class SQLiteDB {
         // 插入珠寶資料進入SQLite
         if m_db.goodConnection() {
             m_db.beginTransaction()
-            m_db.executeUpdate("insert into stickerSet(ID, setID, setName, setAuthor, validDays, price) values (?, ?, ?, ?, ?, ?)", withArgumentsInArray: [id, sSet.setID, sSet.setName, sSet.setAuthor, sSet.validDays, sSet.price])
+            m_db.executeUpdate("insert into stickerSet(ID, setID, setName, setAuthor, validDays, price, hasAnimation, hasSound ) values (?, ?, ?, ?, ?, ?, ?, ?)", withArgumentsInArray: [id, sSet.setID, sSet.setName, sSet.setAuthor, sSet.validDays, sSet.price, (sSet.hasAnimation ? 0 : 1), (sSet.hasSound ? 0 : 1)])
             m_db.commit()
             return true
         }
@@ -72,7 +72,7 @@ class SQLiteDB {
         // 插入分類資料進入SQLite
         if m_db.goodConnection() {
             m_db.beginTransaction()
-            m_db.executeUpdate("insert into sticker(sID, setID) values (?, ?)", withArgumentsInArray: [s.sID, s.setID])
+            m_db.executeUpdate("insert into sticker(sID, setID, hasAnimation) values (?, ?, ?)", withArgumentsInArray: [s.sID, s.setID, (s.isAnimation ? 0 : 1)])
             m_db.commit()
             return true
         }
@@ -91,7 +91,7 @@ class SQLiteDB {
         m_db.executeQuery("select * from stickerSet order by ID", withArgumentsInArray: [])
         
         while resultSet.next() {
-            let item = stickerSet(setID: Int(resultSet.intForColumn("setID")), setName: resultSet.stringForColumn("setName"), setAuthor: resultSet.stringForColumn("setAuthor"), validDays: Int(resultSet.intForColumn("validDays")), price: Int(resultSet.intForColumn("price")))
+            let item = stickerSet(setID: Int(resultSet.intForColumn("setID")), setName: resultSet.stringForColumn("setName"), setAuthor: resultSet.stringForColumn("setAuthor"), validDays: Int(resultSet.intForColumn("validDays")), price: Int(resultSet.intForColumn("price")), animation: Int(resultSet.intForColumn("hasAnimation")), sound: Int(resultSet.intForColumn("hasSound")))
             setArray.append(item)
         }
         close()
@@ -109,7 +109,7 @@ class SQLiteDB {
         m_db.executeQuery("select * from sticker where setID = ? order by sID", withArgumentsInArray: [setID])
         
         while resultSet.next() {
-            let item = sticker(sID: Int(resultSet.intForColumn("sID")), setID: Int(resultSet.intForColumn("setID")))
+            let item = sticker(sID: Int(resultSet.intForColumn("sID")), setID: Int(resultSet.intForColumn("setID")), isAnimation: Int(resultSet.intForColumn("hasAnimation"))==1 ? true : false)
             sArray.append(item)
             
         }

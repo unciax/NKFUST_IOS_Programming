@@ -28,7 +28,6 @@ class StickerViewController: UIViewController,UICollectionViewDataSource,UIColle
     @IBOutlet weak var stickerTitle: UILabel!
     @IBOutlet weak var stickerPrice: UILabel!
     @IBOutlet weak var lblValidDays: UILabel!
-    @IBOutlet var tap: UITapGestureRecognizer!
     
     @IBAction func buySticker(sender: UIButton) {
         let storeURL = NSURL(string: "https://store.line.me/stickershop/product/\(sSet.setID)/zh-Hant")!
@@ -40,11 +39,6 @@ class StickerViewController: UIViewController,UICollectionViewDataSource,UIColle
         let cell: StickerObjectCell = collectionView.dequeueReusableCellWithReuseIdentifier("stickerCell", forIndexPath: indexPath) as! StickerObjectCell
         let sArrayItem = core.sArray[indexPath.row]
         cell.setProperty(sArrayItem.sID, img:sArrayItem.sImage!)
-        /*
-        if cell.sImage.animationImages != nil {
-            cell.sImage.animationDuration = 0.5
-            cell.sImage.startAnimating()
-        }*/
         //print("ID: \(cell.sID) \(cell.sImage.frame.height)")
         count++
         return cell
@@ -52,15 +46,7 @@ class StickerViewController: UIViewController,UICollectionViewDataSource,UIColle
     
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("BuildCell")
         return isReady ? core.sArray.count : 0
-        //return isReady ? 1 : 0
-        
-    }
-    
-    func collectionView(collectionView: UICollectionView, willDisplayCell cell: UICollectionViewCell, forItemAtIndexPath indexPath: NSIndexPath) {
-         //let Cell = cell as!StickerObjectCell
-        //print(Cell.sImage.bounds)
     }
 
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -73,13 +59,9 @@ class StickerViewController: UIViewController,UICollectionViewDataSource,UIColle
         detailController.preferredContentSize = CGSize(width: detailController.st.image!.size.width+16, height: detailController.st.image!.size.height+16)
         popoverView?.delegate=self
         popoverView?.sourceView = cell
-        if (cell!.frame.maxY>140){
-            popoverView?.permittedArrowDirections = .Down
-            popoverView?.sourceRect = CGRect(x: cell!.bounds.width/2,y: 0,width: 0,height: 0)
-        }else{
-            popoverView?.permittedArrowDirections = .Up
-            popoverView?.sourceRect = CGRect(x: cell!.bounds.width/2,y: cell!.bounds.height,width: 0,height: 0)
-        }
+        popoverView?.permittedArrowDirections = .Any
+        
+        popoverView?.sourceRect = cell!.bounds
         presentViewController(detailController, animated: true, completion: nil)
 
     }
@@ -137,16 +119,6 @@ class StickerViewController: UIViewController,UICollectionViewDataSource,UIColle
             }
         }
     }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
 
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -185,7 +157,7 @@ class StickerViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     
     func adaptivePresentationStyleForPresentationController(
-                controller: UIPresentationController!) -> UIModalPresentationStyle {
+                controller: UIPresentationController) -> UIModalPresentationStyle {
         return .None
     }
 }

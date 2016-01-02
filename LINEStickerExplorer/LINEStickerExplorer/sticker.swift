@@ -12,6 +12,7 @@ import UIKit
 class sticker{
     var sID:Int = 0
     var setID:Int = 0
+    var isAnimation:Bool = false
     var sImage:NSData?
     var image:UIImage?
     
@@ -25,9 +26,10 @@ class sticker{
         // do nothing
     }
     
-    init(sID:Int, setID:Int){
+    init(sID:Int, setID:Int, isAnimation:Bool){
         self.sID = sID
         self.setID = setID
+        self.isAnimation = isAnimation
     }
     
     func loadImage(){
@@ -40,18 +42,33 @@ class sticker{
         let fileManager = NSFileManager.defaultManager()
         let path = documentPath.stringByAppendingPathComponent("image/\(setID)/\(sID).png")
         if !fileManager.fileExistsAtPath(path) {
-            let apiUrl = "http://dl.stickershop.line.naver.jp/products/0/0/1/\(setID)/PC/stickers/\(sID).png"
+            let apiUrl = "https://sdl-stickershop.line.naver.jp/products/0/0/1/\(setID)/android/animation/\(sID).png"
             //print("APIURL: \(apiUrl)")
             if let url = NSURL(string: apiUrl) {
-                let data = NSData(contentsOfURL: url)
-                let success = data!.writeToFile(path, atomically: true)
-                if !success {
-                    print("Store image '\(setID)/\(sID).png' failed. ")
+                if let data = NSData(contentsOfURL: url){
+                    let success = data.writeToFile(path, atomically: true)
+                    if !success {
+                        print("Store image '\(setID)/\(sID).png' failed. ")
+                    }else{
+                        print("Store image '\(setID)/\(sID).png'. ")
+                    }
+                    return data
                 }else{
-                    print("Store image '\(setID)/\(sID).png'. ")
+                    let staticUrl = "https://sdl-stickershop.line.naver.jp/products/0/0/1/\(setID)/android/stickers/\(sID).png"
+                    if let surl = NSURL(string: staticUrl){
+                        if let sdata = NSData(contentsOfURL: surl){
+                            let success = sdata.writeToFile(path, atomically: true)
+                            if !success {
+                                print("Store image '\(setID)/\(sID).png' failed. ")
+                            }else{
+                                print("Store image '\(setID)/\(sID).png'. ")
+                            }
+                            return sdata
+                        }
+                    }
                 }
-                return data
             }
+            
         }else{
             let data = NSData(contentsOfFile: path)
             return data
