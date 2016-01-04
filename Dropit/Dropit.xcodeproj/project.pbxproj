@@ -13,6 +13,11 @@
 		978A07C51C19274700EF988C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 978A07C31C19274700EF988C /* LaunchScreen.storyboard */; };
 		978A07CD1C19276500EF988C /* DropitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978A07CC1C19276500EF988C /* DropitViewController.swift */; };
 		978A07D31C192EB300EF988C /* DropitBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 978A07D21C192EB300EF988C /* DropitBehavior.swift */; };
+		97BFAA6E1C1FD3E300FB2BB7 /* BezierPathsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BFAA6D1C1FD3E300FB2BB7 /* BezierPathsView.swift */; };
+		97BFAA701C20E76900FB2BB7 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BFAA6F1C20E76900FB2BB7 /* MainViewController.swift */; };
+		97BFAA721C2173D500FB2BB7 /* LeaderboardTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BFAA711C2173D500FB2BB7 /* LeaderboardTableViewController.swift */; };
+		97BFAA761C2230A900FB2BB7 /* ScoreRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BFAA751C2230A900FB2BB7 /* ScoreRecord.swift */; };
+		97BFAA781C223C7000FB2BB7 /* ScoreTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97BFAA771C223C7000FB2BB7 /* ScoreTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +29,11 @@
 		978A07C61C19274700EF988C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		978A07CC1C19276500EF988C /* DropitViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropitViewController.swift; sourceTree = "<group>"; };
 		978A07D21C192EB300EF988C /* DropitBehavior.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DropitBehavior.swift; sourceTree = "<group>"; };
+		97BFAA6D1C1FD3E300FB2BB7 /* BezierPathsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BezierPathsView.swift; sourceTree = "<group>"; };
+		97BFAA6F1C20E76900FB2BB7 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		97BFAA711C2173D500FB2BB7 /* LeaderboardTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeaderboardTableViewController.swift; sourceTree = "<group>"; };
+		97BFAA751C2230A900FB2BB7 /* ScoreRecord.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreRecord.swift; sourceTree = "<group>"; };
+		97BFAA771C223C7000FB2BB7 /* ScoreTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,8 +68,13 @@
 			children = (
 				978A07D21C192EB300EF988C /* DropitBehavior.swift */,
 				978A07CC1C19276500EF988C /* DropitViewController.swift */,
+				97BFAA771C223C7000FB2BB7 /* ScoreTableViewCell.swift */,
+				97BFAA751C2230A900FB2BB7 /* ScoreRecord.swift */,
 				978A07BA1C19274700EF988C /* AppDelegate.swift */,
+				97BFAA6D1C1FD3E300FB2BB7 /* BezierPathsView.swift */,
 				978A07BE1C19274700EF988C /* Main.storyboard */,
+				97BFAA711C2173D500FB2BB7 /* LeaderboardTableViewController.swift */,
+				97BFAA6F1C20E76900FB2BB7 /* MainViewController.swift */,
 				978A07C11C19274700EF988C /* Assets.xcassets */,
 				978A07C31C19274700EF988C /* LaunchScreen.storyboard */,
 				978A07C61C19274700EF988C /* Info.plist */,
@@ -139,9 +154,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				97BFAA6E1C1FD3E300FB2BB7 /* BezierPathsView.swift in Sources */,
+				97BFAA761C2230A900FB2BB7 /* ScoreRecord.swift in Sources */,
+				97BFAA781C223C7000FB2BB7 /* ScoreTableViewCell.swift in Sources */,
 				978A07CD1C19276500EF988C /* DropitViewController.swift in Sources */,
 				978A07BB1C19274700EF988C /* AppDelegate.swift in Sources */,
 				978A07D31C192EB300EF988C /* DropitBehavior.swift in Sources */,
+				97BFAA701C20E76900FB2BB7 /* MainViewController.swift in Sources */,
+				97BFAA721C2173D500FB2BB7 /* LeaderboardTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -253,6 +273,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Dropit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.edu.nkfust.u0251055.Dropit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -264,6 +285,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = Dropit/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = tw.edu.nkfust.u0251055.Dropit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -289,6 +311,7 @@
 				978A07CB1C19274700EF988C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

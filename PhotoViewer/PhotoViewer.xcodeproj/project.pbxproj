@@ -14,6 +14,7 @@
 		975118901BFD5FA0005A4253 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9751188E1BFD5FA0005A4253 /* LaunchScreen.storyboard */; };
 		975118981BFD62AF005A4253 /* ImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975118971BFD62AF005A4253 /* ImageViewController.swift */; };
 		9751189A1BFD6476005A4253 /* ImageURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 975118991BFD6476005A4253 /* ImageURL.swift */; };
+		97FAF62F1C34B53200E95916 /* SwiftNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF62E1C34B53200E95916 /* SwiftNotice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		975118911BFD5FA0005A4253 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		975118971BFD62AF005A4253 /* ImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageViewController.swift; sourceTree = "<group>"; };
 		975118991BFD6476005A4253 /* ImageURL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageURL.swift; sourceTree = "<group>"; };
+		97FAF62E1C34B53200E95916 /* SwiftNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftNotice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		975118841BFD5FA0005A4253 /* PhotoViewer */ = {
 			isa = PBXGroup;
 			children = (
+				97FAF62E1C34B53200E95916 /* SwiftNotice.swift */,
 				975118851BFD5FA0005A4253 /* AppDelegate.swift */,
 				975118871BFD5FA0005A4253 /* ViewController.swift */,
 				975118991BFD6476005A4253 /* ImageURL.swift */,
@@ -145,6 +148,7 @@
 				975118881BFD5FA0005A4253 /* ViewController.swift in Sources */,
 				975118981BFD62AF005A4253 /* ImageViewController.swift in Sources */,
 				975118861BFD5FA0005A4253 /* AppDelegate.swift in Sources */,
+				97FAF62F1C34B53200E95916 /* SwiftNotice.swift in Sources */,
 				9751189A1BFD6476005A4253 /* ImageURL.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

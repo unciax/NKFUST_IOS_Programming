@@ -1,0 +1,3 @@
+pod 'FMDB'
+use_frameworks!
+pod 'APNGKit', '~> 0.1'

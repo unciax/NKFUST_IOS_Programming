@@ -18,7 +18,7 @@ class DropitBehavior: UIDynamicBehavior {
     lazy var metaBehavior: UIDynamicItemBehavior = {
         let lazilyCreatedMetaBehavior = UIDynamicItemBehavior()
         lazilyCreatedMetaBehavior.allowsRotation = false
-        lazilyCreatedMetaBehavior.elasticity = 0.5
+        lazilyCreatedMetaBehavior.elasticity = 0.1
         return lazilyCreatedMetaBehavior
     }()
 
@@ -29,6 +29,11 @@ class DropitBehavior: UIDynamicBehavior {
         addChildBehavior(collider)
         addChildBehavior(metaBehavior)
         print("Gravity's (mag, angle) = (\(gravity.magnitude), \(gravity.angle / CGFloat(M_PI))𝛑)")
+    }
+    
+    func addBarrier(path: UIBezierPath, named name: String) {
+        collider.removeBoundaryWithIdentifier(name)
+        collider.addBoundaryWithIdentifier(name, forPath: path)
     }
     
     func addDrop(drop: UIView){

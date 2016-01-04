@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6A297312BA19900677085F2B /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8AFD460A3E8DD77D0ABC6474 /* libPods.a */; };
+		08295301C42FED18126E67C9 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B50C5A110DF9DE799262F1BC /* Pods.framework */; };
 		97FAF5E21C2ED73C00E95916 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF5E11C2ED73C00E95916 /* AppDelegate.swift */; };
 		97FAF5E41C2ED73C00E95916 /* StickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF5E31C2ED73C00E95916 /* StickerViewController.swift */; };
 		97FAF5E71C2ED73C00E95916 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97FAF5E51C2ED73C00E95916 /* Main.storyboard */; };
@@ -21,13 +21,12 @@
 		97FAF6021C2F783B00E95916 /* sticker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF6011C2F783B00E95916 /* sticker.swift */; };
 		97FAF6041C2F78ED00E95916 /* stickerSet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF6031C2F78ED00E95916 /* stickerSet.swift */; };
 		97FAF6091C343C1400E95916 /* CustomIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF6081C343C1400E95916 /* CustomIndicator.swift */; };
-		97FAF62B1C3451E300E95916 /* ShowLargeSticker_OLD.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF62A1C3451E300E95916 /* ShowLargeSticker_OLD.swift */; };
 		97FAF62D1C349C8E00E95916 /* ShowLargeStickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF62C1C349C8E00E95916 /* ShowLargeStickerViewController.swift */; };
+		97FAF6351C379EB600E95916 /* LINEAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97FAF6341C379EB600E95916 /* LINEAPI.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0779503C6FB8A188A6744BAC /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
-		8AFD460A3E8DD77D0ABC6474 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		97FAF5DE1C2ED73C00E95916 /* LINEStickerExplorer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LINEStickerExplorer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		97FAF5E11C2ED73C00E95916 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		97FAF5E31C2ED73C00E95916 /* StickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StickerViewController.swift; sourceTree = "<group>"; };
@@ -44,8 +43,9 @@
 		97FAF6011C2F783B00E95916 /* sticker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = sticker.swift; sourceTree = "<group>"; };
 		97FAF6031C2F78ED00E95916 /* stickerSet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stickerSet.swift; sourceTree = "<group>"; };
 		97FAF6081C343C1400E95916 /* CustomIndicator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomIndicator.swift; sourceTree = "<group>"; };
-		97FAF62A1C3451E300E95916 /* ShowLargeSticker_OLD.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowLargeSticker_OLD.swift; sourceTree = "<group>"; };
 		97FAF62C1C349C8E00E95916 /* ShowLargeStickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShowLargeStickerViewController.swift; sourceTree = "<group>"; };
+		97FAF6341C379EB600E95916 /* LINEAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LINEAPI.swift; sourceTree = "<group>"; };
+		B50C5A110DF9DE799262F1BC /* Pods.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C02C222070C6FAE18239BEA3 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,7 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6A297312BA19900677085F2B /* libPods.a in Frameworks */,
+				08295301C42FED18126E67C9 /* Pods.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -73,7 +73,7 @@
 		62314E1FD06E6207FC21C4E6 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				8AFD460A3E8DD77D0ABC6474 /* libPods.a */,
+				B50C5A110DF9DE799262F1BC /* Pods.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -104,7 +104,6 @@
 				97FAF5E11C2ED73C00E95916 /* AppDelegate.swift */,
 				97FAF5F81C2EE92800E95916 /* StickerListCollectionViewController.swift */,
 				97FAF6081C343C1400E95916 /* CustomIndicator.swift */,
-				97FAF62A1C3451E300E95916 /* ShowLargeSticker_OLD.swift */,
 				97FAF5E31C2ED73C00E95916 /* StickerViewController.swift */,
 				97FAF5E51C2ED73C00E95916 /* Main.storyboard */,
 				97FAF62C1C349C8E00E95916 /* ShowLargeStickerViewController.swift */,
@@ -112,6 +111,7 @@
 				97FAF5EA1C2ED73D00E95916 /* LaunchScreen.storyboard */,
 				97FAF5ED1C2ED73D00E95916 /* Info.plist */,
 				97FAF5FA1C2F70A400E95916 /* LINEStickerExplorer-Bridging-Header.h */,
+				97FAF6341C379EB600E95916 /* LINEAPI.swift */,
 			);
 			path = LINEStickerExplorer;
 			sourceTree = "<group>";
@@ -268,9 +268,9 @@
 				97FAF6021C2F783B00E95916 /* sticker.swift in Sources */,
 				97FAF62D1C349C8E00E95916 /* ShowLargeStickerViewController.swift in Sources */,
 				97FAF5E21C2ED73C00E95916 /* AppDelegate.swift in Sources */,
-				97FAF62B1C3451E300E95916 /* ShowLargeSticker_OLD.swift in Sources */,
 				97FAF6041C2F78ED00E95916 /* stickerSet.swift in Sources */,
 				97FAF6001C2F72C600E95916 /* SQLiteDB.swift in Sources */,
+				97FAF6351C379EB600E95916 /* LINEAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -385,6 +385,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				COMPRESS_PNG_FILES = NO;
 				INFOPLIST_FILE = LINEStickerExplorer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -401,6 +402,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				COMPRESS_PNG_FILES = NO;
 				INFOPLIST_FILE = LINEStickerExplorer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

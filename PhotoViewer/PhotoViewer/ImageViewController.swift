@@ -37,7 +37,9 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
     private var image:UIImage? {
         get{ return imageView.image}
         set{
-            spinner?.stopAnimating()
+            //spinner?.stopAnimating()
+            self.clearAllNotice()
+            self.noticeInfo("載入完成", autoClear: true, autoClearTime: 3)
             imageView.image = newValue
             imageView.sizeToFit()
             scrollView.contentSize=imageView.frame.size
@@ -53,7 +55,8 @@ class ImageViewController: UIViewController,UIScrollViewDelegate {
     
     private func fetchImage(){
         if let url = imageURL {
-            spinner.startAnimating()
+            //spinner.startAnimating()
+            self.pleaseWait()
             dispatch_async(dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0)){
                 let imageData = NSData(contentsOfURL: url)
                 dispatch_async(dispatch_get_main_queue()){
