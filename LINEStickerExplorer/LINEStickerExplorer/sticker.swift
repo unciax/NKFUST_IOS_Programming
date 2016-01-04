@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import APNGKit
 
 class sticker{
     var sID:Int = 0
@@ -15,6 +16,9 @@ class sticker{
     var isAnimation:Bool = false
     var sImage:NSData?
     var image:UIImage?
+    var aniImage:APNGImage?
+    var sound:String?
+    var api = LINEAPI()
     
     private let documentPath: AnyObject =
     NSSearchPathForDirectoriesInDomains(
@@ -32,46 +36,70 @@ class sticker{
         self.isAnimation = isAnimation
     }
     
-    func loadImage(){
-        sImage = getImage()
+    func load(){
+        sound = getSound()
+        sImage = getStaticImage()
+        aniImage = getDynamicImage()
         image = UIImage(data: sImage!)
     }
     
-    func getImage()->NSData?{
+    func getDynamicImage()->APNGImage?{
         
         let fileManager = NSFileManager.defaultManager()
-        let path = documentPath.stringByAppendingPathComponent("image/\(setID)/\(sID).png")
+        let path = documentPath.stringByAppendingPathComponent("image/\(setID)/\(sID)_ani.apng")
         if !fileManager.fileExistsAtPath(path) {
-            let apiUrl = "https://sdl-stickershop.line.naver.jp/products/0/0/1/\(setID)/android/animation/\(sID).png"
-            //print("APIURL: \(apiUrl)")
-            if let url = NSURL(string: apiUrl) {
+            if let url = NSURL(string: api.getAnimationSticker(setID, stickerID: sID)) {
                 if let data = NSData(contentsOfURL: url){
                     let success = data.writeToFile(path, atomically: true)
                     if !success {
-                        print("Store image '\(setID)/\(sID).png' failed. ")
-                    }else{
-                        print("Store image '\(setID)/\(sID).png'. ")
+                        print("'\(setID)/\(sID)' has no animation image. ")
                     }
-                    return data
-                }else{
-                    let staticUrl = "https://sdl-stickershop.line.naver.jp/products/0/0/1/\(setID)/android/stickers/\(sID).png"
-                    if let surl = NSURL(string: staticUrl){
-                        if let sdata = NSData(contentsOfURL: surl){
-                            let success = sdata.writeToFile(path, atomically: true)
-                            if !success {
-                                print("Store image '\(setID)/\(sID).png' failed. ")
-                            }else{
-                                print("Store image '\(setID)/\(sID).png'. ")
-                            }
-                            return sdata
-                        }
-                    }
+                    let img = APNGImage(data: data)
+                    return img
                 }
             }
-            
+        }else{
+            let data = APNGImage(contentsOfFile: path)
+            return data
+        }
+        return nil
+    }
+
+    func getStaticImage()->NSData?{
+        let fileManager = NSFileManager.defaultManager()
+        let path = documentPath.stringByAppendingPathComponent("image/\(setID)/\(sID).png")
+        if !fileManager.fileExistsAtPath(path) {
+            if let url = NSURL(string: api.getStickerImage(setID, stickerID: sID)) {
+                if let data = NSData(contentsOfURL: url){
+                    let success = data.writeToFile(path, atomically: true)
+                    if !success {
+                        print("Store image'\(setID)/\(sID)' failed. ")
+                    }
+                    return data
+                }
+            }
         }else{
             let data = NSData(contentsOfFile: path)
             return data
+        }
+        return nil
+    }
+    
+    func getSound()->String?{
+        let fileManager = NSFileManager.defaultManager()
+        let path = documentPath.stringByAppendingPathComponent("sound/\(setID)/\(sID).m4a")
+        if !fileManager.fileExistsAtPath(path) {
+            if let url = NSURL(string: api.getSoundUrl(setID, stickerID: sID)) {
+                if let data = NSData(contentsOfURL: url){
+                    let success = data.writeToFile(path, atomically: true)
+                    if !success {
+                        print("Store sound'\(setID)/\(sID)' failed. ")
+                    }
+                    return path
+                }
+            }
+        }else{
+            return path
         }
         return nil
     }

@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import APNGKit
 
 class ShowLargeStickerViewController: UIViewController {
 
@@ -15,27 +16,47 @@ class ShowLargeStickerViewController: UIViewController {
     var player = AVQueuePlayer()
     var api = LINEAPI()
     var img = UIImageView(frame: CGRectZero)
+    var ani:APNGImageView?
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        img.image = UIImage(data:st.sImage!)
-        let frameOfImage = CGRect(x: 8, y: 8  , width: img.image!.size.width, height: img.image!.size.height)
-        img.frame = frameOfImage
+        var frameOfImage = CGRectZero
+        
         let singleTap = UITapGestureRecognizer(target: self, action:"playAgain")
         singleTap.numberOfTapsRequired = 1
-        img.userInteractionEnabled = true
-        img.addGestureRecognizer(singleTap)
-        view.addSubview(img)
+
+        if st.aniImage != nil {
+            ani = APNGImageView(image: st.aniImage)
+            frameOfImage = CGRect(x: 8, y: 8  , width:  ani!.image!.size.width, height:  ani!.image!.size.height)
+            ani!.frame = frameOfImage
+            ani!.userInteractionEnabled = true
+            ani!.addGestureRecognizer(singleTap)
+            view.addSubview(ani!)
+            ani!.startAnimating()
+        }else{
+            img.image = UIImage(data:st.sImage!)
+            frameOfImage = CGRect(x: 8, y: 8  , width: img.image!.size.width, height: img.image!.size.height)
+            img.frame = frameOfImage
+            img.userInteractionEnabled = true
+            img.addGestureRecognizer(singleTap)
+            view.addSubview(img)
+        }
+        
+                
         
         img.sizeThatFits(CGSize(width: st.image!.size.width, height: st.image!.size.height))
         if img.image?.images != nil {
             img.startAnimating()
         }
         
-        player.removeAllItems()
-        player.insertItem(AVPlayerItem(URL: NSURL(string: api.getSoundUrl(st.setID, stickerID: st.sID))!), afterItem: nil)
-        player.actionAtItemEnd = .Pause
-        player.play()
+        if (st.sound != nil){
+            player.removeAllItems()
+            //player.insertItem(AVPlayerItem(URL: NSURL(string: api.getSoundUrl(st.setID, stickerID: st.sID))!), afterItem: nil)
+            player.insertItem(AVPlayerItem(URL: NSURL(fileURLWithPath: st.sound!)), afterItem: nil)
+            player.actionAtItemEnd = .Pause
+            player.play()
+        }
+        
         
         NSNotificationCenter.defaultCenter().addObserverForName(AVPlayerItemDidPlayToEndTimeNotification,
             object: nil,
@@ -47,6 +68,7 @@ class ShowLargeStickerViewController: UIViewController {
     }
     
     func playAgain(){
+        if ani != nil { ani?.startAnimating() }
         player.play()
     }
 

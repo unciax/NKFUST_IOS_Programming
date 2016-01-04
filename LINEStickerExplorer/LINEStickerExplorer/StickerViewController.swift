@@ -103,7 +103,7 @@ class StickerViewController: UIViewController,UICollectionViewDataSource,UIColle
 
 
            for sArrayItem in self.core.sArray{
-               sArrayItem.loadImage()
+               sArrayItem.load()
             }
             
             if isErrorOccurred {
@@ -142,18 +142,18 @@ class StickerViewController: UIViewController,UICollectionViewDataSource,UIColle
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-            super.prepareForSegue(segue, sender: sender)
-            var st = sticker()
-            if (segue.identifier == "showLargeSticker"){
-        if let indexPath = myCollectionView?.indexPathsForSelectedItems(){
+        super.prepareForSegue(segue, sender: sender)
+        var st = sticker()
+        if (segue.identifier == "showLargeSticker"){
+            if let indexPath = myCollectionView?.indexPathsForSelectedItems(){
                 for path in indexPath{
-                st = core.sArray[path.row]
+                    st = core.sArray[path.row]
                 }
-        }
-        let VC = segue.destinationViewController as! ShowLargeStickerViewController
-        VC.st = st
-        
             }
+            let VC = segue.destinationViewController as! ShowLargeStickerViewController
+            VC.st = st
+        
+        }
     }
     
     func adaptivePresentationStyleForPresentationController(
